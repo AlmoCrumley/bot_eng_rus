@@ -24,4 +24,6 @@ class UserVocabulary(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     word_id = Column(Integer, ForeignKey('words.id'))
 
+
 Base.metadata.create_all(engine)
+

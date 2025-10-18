@@ -1,4 +1,4 @@
-token = '6913875014:AAF84zGIn5_bPlLrhY2pBB--PSkEPFTw69g'
+#token = '6913875014:AAF84zGIn5_bPlLrhY2pBB--PSkEPFTw69g'
 
 from dataclasses import dataclass
 from environs import Env
@@ -17,4 +17,4 @@ class Config:
 def load_config(path: str | None = None) -> Config:
     env = Env()
     env.read_env(path)
-    return Config(tg_bot=TgBot(token))
+    return Config(tg_bot=TgBot(token=env('BOT_TOKEN')))

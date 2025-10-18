@@ -1,6 +1,5 @@
 from sqlalchemy.orm import sessionmaker
 
-
 from db_bot.models import User, Word, UserVocabulary, engine
 
 Session = sessionmaker(bind=engine)
@@ -53,3 +52,5 @@ def add_word_to_the_vocabulary(word, user):
         session.add(vocab)
         session.commit()
         return "Слово добавлено"
+
+
