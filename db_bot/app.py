@@ -16,8 +16,8 @@ def new_user(user_id):
         session.commit()
 
 def get_word(word):
-    word = session.query(Word).filter_by(english=word).one_or_none()
-    return word
+    word = session.query(Word).filter_by(english=word)
+    return word[0]
 
 def get_vocabulary(telegram_id):
     existing_vocab = session.query(UserVocabulary).filter_by(
