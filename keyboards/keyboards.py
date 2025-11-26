@@ -13,9 +13,14 @@ add_to_vocabulary_btn = InlineKeyboardButton(
     text="Добавить в словарь", callback_data="add_to_vocabulary"
 )
 
+add_to_vocabulary_again_btn = InlineKeyboardButton(
+    text="Добавить в словарь", callback_data="add_to_vocabulary_again"
+)
+
 
 # Создаем объект инлайн-клавиатуры
 inline_add_to_vocab = InlineKeyboardMarkup(inline_keyboard=[[add_to_vocabulary_btn], [to_see_all_words]])
+inline_add_to_vocab_again = InlineKeyboardMarkup(inline_keyboard=[[add_to_vocabulary_again_btn], [to_see_all_words]])
 
 #инлайн квлавиатура пагинации
 def create_pagination_keyboard():

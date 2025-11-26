@@ -17,7 +17,10 @@ def new_user(user_id):
 
 def get_word(word):
     word = session.query(Word).filter_by(english=word)
-    return word[0]
+    try:
+        return word[0]
+    except:
+        return  None
 
 def get_vocabulary(telegram_id):
     existing_vocab = session.query(UserVocabulary).filter_by(
@@ -38,9 +41,9 @@ def add_word_to_the_vocabulary(word, user):
         existing_vocab = session.query(UserVocabulary).filter_by(
             user_id=user,
             word_id=word.id
-        ).one_or_none()
-        if existing_vocab:
-            return "Слово уже есть"
+        )
+        if  existing_vocab.count() > 0:
+            return f"Слово уже есть"
         else:
             vocab = UserVocabulary(user_id=user, word_id=word.id)
             session.add(vocab)
@@ -53,4 +56,22 @@ def add_word_to_the_vocabulary(word, user):
         session.commit()
         return "Слово добавлено"
 
+def add_word_to_the_vocabulary_again(word, user):
+    print('again', word, user)
+    user_vocabs = session.query(UserVocabulary).all()
+    if user in [vocab.user_id for vocab in user_vocabs]:
+        existing_vocab = session.query(UserVocabulary).filter_by(
+            user_id=user,
+            word_id=word.id
+        )
+        vocab = UserVocabulary(user_id=user, word_id=word.id)
+        session.add(vocab)
+        session.commit()
+        length_of_vocab = len([vocab.word_id for vocab in session.query(UserVocabulary).filter_by(user_id=user)])
+        return f"Слово добавлено. Сохранено: {length_of_vocab} слов(а)"
+    else:
+        vocab = UserVocabulary(user_id=user, word_id=word.id)
+        session.add(vocab)
+        session.commit()
+        return "Слово добавлено"
 
